@@ -1,0 +1,4 @@
+name: goldenticket
+input-topic: ""
+output-topics: []
+language: tinygo-no-goroutines

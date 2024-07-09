@@ -1,0 +1,40 @@
+input:
+  kafka_franz:
+    seed_brokers: ["localhost:9092"] # No default (required)
+    topics: ["retail-candies"] # No default (required)
+    regexp_topics: false
+    consumer_group: "" # No default (optional)
+    auto_replay_nacks: true
+buffer:
+  none: {}
+output:
+  switch:
+    retry_until_success: false
+    cases: 
+      - check: this.hasGoldenTicket
+        output:
+            kafka_franz:
+              seed_brokers:
+                - localhost:9092
+              topic: win
+            processors:
+              - log:
+                  level: INFO
+                  message: "Found a golden ticket!"
+              - type: bloblang
+                bloblang: |
+                  root = this.candy
+      - check: !this.hasGoldenTicket 
+        output:
+            kafka_franz:
+              seed_brokers:
+                - localhost:9092
+              topic: try-again
+            processors:
+              - log:
+                  level: INFO
+                  message: "No golden ticket, try again!"
+              - type: bloblang
+                bloblang: |
+                  root = this.candy
+
