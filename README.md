@@ -6,6 +6,7 @@
 
 Play book og the demo
 
+```
  REDPANDA BROKER
 |================|
 |                |
@@ -14,12 +15,16 @@ Play book og the demo
 |-retail-candies-|
 |                |
 |================|
+```
 
 Start a Redpanda cluster with a single broker
 ```
 rpk container start -n 1
 rpk topic create candies
 rpk topic create retail-candies
+```
+
+
 ```
                  REDPANDA BROKER
                 |================|
@@ -29,7 +34,7 @@ rpk topic create retail-candies
                 |-retail-candies-|
                 |                |
                 |================|
-
+```
 
 Run the Wonka application to produce candies
 ```
@@ -47,6 +52,7 @@ rpk container stop
 rpk container start
 ```
 
+```
                  REDPANDA BROKER
                 |================|
                 |                |
@@ -57,6 +63,7 @@ rpk container start
                 |-retail-candies-|
                 |                |
                 |================|
+```
 
 #rpk transform init goldenticket
 
@@ -67,6 +74,7 @@ rpk transform build
 rpk transform deploy -i candies -o retail-candies
 ```
 
+```
                  REDPANDA BROKER
                 |================|
                 |                |
@@ -81,8 +89,7 @@ rpk transform deploy -i candies -o retail-candies
                 |                |         |
                 |---try-again----| <-------|
                 |================|
-
-
+```
 
 #rpk connect create -s kafka_franz//switch
 
